@@ -8,6 +8,55 @@
 {% endblock js %}
 
 {% block content %}
+<br>
+<section class="container">
+    <div class="card2">
+      <h1 style="text-align:center;">Добрый день! Рады приветствовать вас на образовательном ресурсе "Последняя теорема Фарма"</h1>
+      <p >Наша команда осуществляет свою образовательную деятельность с 2022 года.</p>
+          <p>Наша главная задача – успешная подготовка и обучение студентов вузов технических специальностей с математическим и IT уклоном.</p>
+          <p>На нашем сайте вы можете найти материалы и калькуляторы по:</p>
+          <p>•Высшей математике</p>
+          <p>•Численным методам</p>
+          <p>•Математическому моделированию</p>
+          
+    </div>
+</section>
+<style>
+.h-100{
+    background-color: rgb(233, 233, 233);
+    font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+  }
+  .container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 
+  }
+
+  .card1{
+    background: rgb(255, 255, 255);
+    width: 400px;
+    height: 480px;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 16px rgb(0 51 153 / 4%), 0 2px 2px rgb(0 51 153 / 8%);
+    padding: 10px;
+    padding-top: 15px;
+  }
+  .card2{
+    background: white;
+    width: 95%;
+    height: 40%;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 16px rgb(0 51 153 / 4%), 0 2px 2px rgb(0 51 153 / 8%);
+    padding: 10px;
+    padding-top: 15px;
+  }
+  .navbar-brand:hover{
+    scale: 1.2;
+    transition: 0.3s ease-in-out;
+  }
+</style>
 {% endblock content %}
 
