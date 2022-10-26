@@ -1,18 +1,47 @@
 {% load static %}
 
-<footer class="blog-footer mt-4">
-  <div class="container">
-    
-      <p class="mb-1">©Novak Gayos & co.</p>
-      <p class="float-end mb-1">
-        <a href="#" class="footer-link">Наверх</a>
-    </p>
+<footer class="row row-cols-5 py-5 my-5 border-top">
+  <div class="col">
+    <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+      <img src="{% static 'imgs\logoPet.svg' %}" width="120" height="100" style="margin: 10px;">
+    </a>
+    <p class="text-muted" style="padding: 20px;">©Novak Gayos & co. 2022</p>
+  </div>
+
+  <div class="col">
+
+  </div>
+
+  <div class="col">
+    <h5>Высшая математика</h5>
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+    </ul>
+  </div>
+
+  <div class="col">
+    <h5>Численные методы</h5>
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2"><a href="/numericmethods/" class="nav-link p-0 text-muted">Главная</a></li>
+      <li class="nav-item mb-2"><a href="/numericmethods/matrixrules" class="nav-link p-0 text-muted ">Матрицы</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+    </ul>
+  </div>
+
+  <div class="col">
+    <h5>Математическое моделирование</h5>
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+      <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+      <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+      <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+      <li class="nav-item mb-2 " ><a href="#" class="nav-link p-0 text-muted">Coming soon..</a></li>
+    </ul>
   </div>
 </footer>
-<style>
-  .footer-link {
-      text-decoration: none;
-      color: black;
-      padding: 30px;
-  }
-</style>

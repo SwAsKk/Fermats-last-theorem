@@ -21,4 +21,6 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
+    path('numericmethods/', views.numericMehods),
+    path('numericmethods/matrixrules', views.matrixLawOfEquality),
 ]
