@@ -1,4 +1,6 @@
 from multiprocessing import context
+from pickle import GET
+from tkinter import N
 from urllib import request
 from django.shortcuts import render
 import numpy as np
@@ -24,11 +26,6 @@ def numericMehods(request):
     return render(request, 'pages/numericMethods.html', context)
 
 
-def matrixLawOfEquality(request):
-    form=SizeForm(request.POST)
-    if form.is_valid():
-        size=form.cleaned_data['size']
-    else:
-        form=SizeForm(request.POST)
-            
-    return render(request, 'pages/matrixlaws.html')
+def matrixLawOfEquality(request):  
+    n = 5     
+    return render(request, 'pages/matrixlaws.html',{'n_value':range(n)})

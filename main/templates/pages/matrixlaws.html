@@ -1,47 +1,54 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block css %}
 {% endblock css %}
-
 {% block js %}
 {% endblock js %}
-
 {% block content %}
-<section class="container">
+  <section class="container">
     <div class="card2">
-    <h1 style="text-align: center;">Матричные прозведения подчиняются следующим законам:</h1>
-    <p>•A(BC)=(AB)C</p>
-    <p>•α(AB)=(αA)B</p>
-    <p>•(A+B)*C=AC+BC</p>
-    <p>•C(A+B)=CA+CB</p>
-    </div>  
-<br>
-<br>
-    <div class="card2">
-        <h1 style="text-align: center;">Отметим, что AB≠BA, т.е произведение двух матриц в общем случае не обладает свойством переместительности.</h1>
-        <p>Значит, в общем случае нельзя менять местами матрицы-сомножители, не изменив их произведения.</p>
-        <p>Если изменить порядок сомножителей, то может оказаться, что произвести умножение матриц вообще невозможно</p>
-        <p>О произведении AB двух матриц A и B будем говорить, что матрица B умножается на матрицу A справа на матрицу B, а полученная матрица умножается справа на матрицу C и т.д. </p>
-        <p>Количество перемножаемых матриц может быть любым, лишь бы можно было перемножать каждые две рядом стоящие матрицы.</p>
+      <h1 style="text-align: center;">Матричные прозведения подчиняются следующим законам:</h1>
+      <p>•A(BC)=(AB)C</p>
+      <p>•α(AB)=(αA)B</p>
+      <p>•(A+B)*C=AC+BC</p>
+      <p>•C(A+B)=CA+CB</p>
     </div>
-
-<br>
-<br>
+    <br/>
+    <br/>
     <div class="card2">
-        <h1 style="text-align: center;">Давайте проверим свойства матриц на примере с подробным объяснением.</h1>
-        <h1 style="text-align: center;">Введите размерность матриц</h1>
-        <form class="form-contact contact_form" action="" method="post" id="contactForm">
-            {% csrf_token %}
-            <div class="textbox textfield">
-              {{form.size }}
-              <br>
-            </div>
-            <div class="content text-center">
-              <button type="submit" class="btn btn-outline-warning btn-lg" >Начать!</button>
-            </div>
-          </form>
-
+      <h1 style="text-align: center;">
+        Отметим, что AB≠BA, т.е произведение двух матриц в общем случае не обладает свойством переместительности.
+      </h1>
+      <p>Значит, в общем случае нельзя менять местами матрицы-сомножители, не изменив их произведения.</p>
+      <p>Если изменить порядок сомножителей, то может оказаться, что произвести умножение матриц вообще невозможно</p>
+      <p>
+        О произведении AB двух матриц A и B будем говорить, что матрица B умножается на матрицу A справа на матрицу B, а полученная матрица умножается справа на матрицу C и т.д.
+      </p>
+      <p>
+        Количество перемножаемых матриц может быть любым, лишь бы можно было перемножать каждые две рядом стоящие матрицы.
+      </p>
     </div>
-</section>
+    <br/>
+    <br/>
+    <div class="card2">
+      <h1 style="text-align: center;">Давайте проверим свойства матриц на примере с подробным объяснением.</h1>
+      <h1 style="text-align: center;">Введите размерность матриц</h1>
+    </div>
+    <form action="" method="post">
+      <input type="text" name="matrix" id="matrix" style="display: none"/>
+      <table class="table0">
+       {% csrf_token %}
+        {% for j in n_value %}
+          <tr>
+            {% for i in n_value %}
+            <td class="TblCl">
+              <input type="text" name="fake_matrix" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off"/>
+            </td>{% endfor %}
+          </tr>
+        {% endfor %}
+      
+    </table>
+    <button type="submit">Ы</button>
+  </form>
+  </section>
 {% endblock content %}
