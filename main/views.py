@@ -27,5 +27,8 @@ def numericMehods(request):
 
 
 def matrixLawOfEquality(request):  
-    n = 5     
-    return render(request, 'pages/matrixlaws.html',{'n_value':range(n)})
+    context = {}
+    if request.method == "POST":
+        context["n_value"] = range(int(request.POST.get('size', 0)))
+    
+    return render(request, 'pages/matrixlaws.html', context)
