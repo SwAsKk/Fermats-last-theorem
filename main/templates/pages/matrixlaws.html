@@ -47,7 +47,7 @@
               <tr>
                 {% for i in n_value %}
                 <td class="TblCl">
-                  <input type="text" name="fake_matrix" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off"/>
+                  <input type="number" name="fake_matrix" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off"/>
                 </td>{% endfor %}
               </tr>
             {% endfor %}
@@ -58,6 +58,6 @@
     </div>
     
    
-  {{m_value}}
+ 
   </section>
 {% endblock content %}

@@ -28,7 +28,33 @@ def numericMehods(request):
 
 def matrixLawOfEquality(request):  
     context = {}
+    context["site_name"] = "Численные методы"
+    context["page_name"] = "Законы матриц"
+    #firstArray = np.array(((2,2)), dtype="int32")
     if request.method == "POST":
         context["n_value"] = range(int(request.POST.get('size', 0)))
+        
+    if request.POST.get('size') != 0:
+            sizeOfArray = int(request.POST.get('size', 0))
+    print(sizeOfArray)
+      
+    listArray = request.POST.getlist('fake_matrix')
+    fisrtArray = []
+    for i in range(2):
+        fisrtArray.append([0]*2)
+    count = 0
     
-    return render(request, 'pages/matrixlaws.html', context)
+    if len(listArray) != 0:
+        for i in range (2):
+            for j in range (2):
+                fisrtArray[i][j] = int(listArray[count])
+                count += 1
+
+    print(fisrtArray)
+    
+    #for i in range(2):
+        #for j in range(2):
+            #firstArray[i][j].insert(firstArray,listArray)
+    print(listArray) 
+    
+    return render(request, 'pages/matrixlaws.html', context,)
