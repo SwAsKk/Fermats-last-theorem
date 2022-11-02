@@ -51,13 +51,33 @@
                 </td>{% endfor %}
               </tr>
             {% endfor %}
-            <input type="submit" value ="Рассчитать"/>
         </table>
+
+        <table class="table0">
+          {% csrf_token %}
+           {% for j in n_value %}
+             <tr>
+               {% for i in n_value %}
+               <td class="TblCl">
+                 <input type="number" name="fake_matrix_second" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off" />
+               </td>{% endfor %}
+             </tr>
+           {% endfor %}
+           <input type="submit" value ="Рассчитать"/>
+       </table>
+        
         
       </form>
     </div>
+    <p>Первая матрица:</p>
+    <p>{{firstArray}}</p>
+    <p>Вторая матрица:</p>
+    <p>{{secondArray}}</p>
+    <p>Третья матрица (Получена умножением первой и второй матрицы):</p>
+    <p>{{thirdArray}}</p>
 
-    {{firstArray}}
+    {{resultOfLeftSide}}
+    {{resultOfRightSide}}
     
    
  
