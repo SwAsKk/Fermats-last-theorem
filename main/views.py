@@ -40,13 +40,14 @@ def matrixLawOfEquality(request):
       
     listArray = request.POST.getlist('fake_matrix')
     fisrtArray = []
-    for i in range(2):
-        fisrtArray.append([0]*2)
-    count = 0
+    
     
     if len(listArray) != 0:
-        for i in range (2):
-            for j in range (2):
+        for с in range(round(len(listArray)**0.5)):
+            fisrtArray.append([0]*round(len(listArray)**0.5))
+        count = 0
+        for i in range (round(len(listArray)**0.5)):
+            for j in range (round(len(listArray)**0.5)):
                 fisrtArray[i][j] = int(listArray[count])
                 count += 1
 
@@ -56,5 +57,6 @@ def matrixLawOfEquality(request):
         #for j in range(2):
             #firstArray[i][j].insert(firstArray,listArray)
     print(listArray) 
+    context["firstArray"] = fisrtArray
     
-    return render(request, 'pages/matrixlaws.html', context,)
+    return render(request, 'pages/matrixlaws.html', context)
