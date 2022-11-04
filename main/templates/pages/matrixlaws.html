@@ -34,8 +34,8 @@
       <h1 style="text-align: center;">Давайте проверим свойства матриц на примере с подробным объяснением.</h1>
       <h1 style="text-align: center;">Введите размерность матриц</h1>
       <form action="" method="post">
-        {% csrf_token%}
-        <input type="number" id="size" name="size" min="2" max="6"/>
+        {% csrf_token %}
+        <input type="number" id="size" name="size" min="2" max="6" required/>
         <input type="submit"/>
         </form>
         
@@ -47,7 +47,7 @@
               <tr>
                 {% for i in n_value %}
                 <td class="TblCl">
-                  <input type="number" name="fake_matrix" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off" />
+                  <input type="number" name="fake_matrix" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off" required />
                 </td>{% endfor %}
               </tr>
             {% endfor %}
@@ -59,7 +59,7 @@
              <tr>
                {% for i in n_value %}
                <td class="TblCl">
-                 <input type="number" name="fake_matrix_second" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off" />
+                 <input type="number" name="fake_matrix_second" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off" required />
                </td>{% endfor %}
              </tr>
            {% endfor %}
@@ -69,18 +69,35 @@
         
       </form>
     </div>
+    <div class="card2">
+    {% if resultOfLeftSide.any != 0 %}
     <p>Первая матрица:</p>
-    <p>{{firstArray}}</p>
-    <p>Вторая матрица:</p>
-    <p>{{secondArray}}</p>
-    <p>Третья матрица (Получена умножением первой и второй матрицы):</p>
-    <p>{{thirdArray}}</p>
-
-    {{resultOfLeftSide}}
-    {{resultOfRightSide}}
     
-   
+    {% for i in firstArray %}
+    <h1 class="paragraph"> {{ i }} </h1>
+    {% endfor %}
+    <p>Вторая матрица:</p>
+    {% for i in secondArray %}
+    <h1 class="paragraph"> {{ i }} </h1>
+    {% endfor %}
+    <p>Третья матрица (Получена умножением первой и второй матрицы):</p>
+    {% for i in thirdArray %}
+    <h1 class="paragraph"> {{ i }} </h1>
+    {% endfor %}
+    <p>(A+B)*C</p>
+    {% for i in resultOfLeftSide %}
+    <h1 class="paragraph"> {{ i }} </h1>
+    {% endfor %}
+    
+    <p>(AC)+(BC)</p>
+    {% for i in resultOfRightSide %}
+    <h1 class="paragraph"> {{ i }} </h1>
+    {% endfor %}
+    
+    {% endif %}
  
+    </div>
+    
   </section>
 
 <style>
