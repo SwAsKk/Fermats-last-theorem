@@ -70,38 +70,39 @@ def matrixLawOfEquality(request):
                 count1 +=1
 
     #Declaration of third array
-    thirdArray = np.array
+    thirdArray = np.ones(2, dtype=np.int64)
 
     #Converting first and second array to NumPy array
     np.asarray(fisrtArray)
     np.asarray(secondArray)
 
+    if len(fisrtArray) != 0 :
     #Getting the value of third matrix using multiplication of first and second matrix
-    thirdArray = np.dot(fisrtArray, secondArray)
+        thirdArray = np.dot(fisrtArray, secondArray)
 
     #Summ of first and second matrix (A+B)
-    sumOfFirstAndSecondMatrix = np.add(fisrtArray, secondArray)
+        sumOfFirstAndSecondMatrix = np.add(fisrtArray, secondArray)
 
     #Result of left side of rule (A+B)*C
-    resultOfLeftSide = np.dot(sumOfFirstAndSecondMatrix, thirdArray)
+        resultOfLeftSide = np.dot(sumOfFirstAndSecondMatrix, thirdArray)
 
     #Multiplication of first and third matrix (AC)
-    multiplicationOfFirstAndThirdMatrix = np.dot(fisrtArray, thirdArray)
+        multiplicationOfFirstAndThirdMatrix = np.dot(fisrtArray, thirdArray)
     
     #Multiplication of second and third matrix (BC)
-    multiplicationOfSecondAndThirdMatrix = np.dot(secondArray, thirdArray)
+        multiplicationOfSecondAndThirdMatrix = np.dot(secondArray, thirdArray)
 
     #Result of right side of rule = AC + BC
-    resultOfRightSide = np.add(multiplicationOfFirstAndThirdMatrix, multiplicationOfSecondAndThirdMatrix)
+        resultOfRightSide = np.add(multiplicationOfFirstAndThirdMatrix, multiplicationOfSecondAndThirdMatrix)
 
 
 
 
 
     #Getting first and second array to context to display on site
-    context["firstArray"] = fisrtArray
-    context["secondArray"] = secondArray
-    context["thirdArray"] = thirdArray
-    context["resultOfLeftSide"] = resultOfLeftSide
-    context["resultOfRightSide"] = resultOfRightSide
+        context["firstArray"] = fisrtArray
+        context["secondArray"] = secondArray
+        context["thirdArray"] = thirdArray
+        context["resultOfLeftSide"] = resultOfLeftSide
+        context["resultOfRightSide"] = resultOfRightSide
     return render(request, 'pages/matrixlaws.html', context)

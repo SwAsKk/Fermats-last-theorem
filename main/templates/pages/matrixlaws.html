@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 {% block css %}
 {% endblock css %}
@@ -70,7 +70,7 @@
       </form>
     </div>
     <div class="card2">
-    {% if resultOfLeftSide.any != 0 %}
+   {% if resultOfRightSide|length != 0 %}
     <p>Первая матрица:</p>
     
     {% for i in firstArray %}
