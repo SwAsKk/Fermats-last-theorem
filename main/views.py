@@ -4,6 +4,7 @@ from tkinter import N
 from urllib import request
 from django.shortcuts import render
 import numpy as np
+from numpy import linalg
 
 from main.forms import SizeForm
 
@@ -25,6 +26,40 @@ def numericMehods(request):
     context["site_name"] = "Численные методы"
     context["page_name"] = "Главная"
     return render(request, 'pages/numericMethods.html', context)
+
+
+#View for finding determinant of matrix in numerical methods
+def determinant(request):
+    context={}
+    context["site_name"] = "Численные методы"
+    context["page_name"] = "Определитель матрицы"
+    if request.method == "POST":
+        context["n_value"] = range(int(request.POST.get('size', 0)))
+
+    listArrayDeterminant = request.POST.getlist('fake_matrix')
+    arrayDeterminant = []
+
+    if len(listArrayDeterminant) != 0:
+        for с in range(round(len(listArrayDeterminant)**0.5)):
+            arrayDeterminant.append([0]*round(len(listArrayDeterminant)**0.5))
+        count = 0
+        for i in range (round(len(listArrayDeterminant)**0.5)):
+            for j in range (round(len(listArrayDeterminant)**0.5)):
+                arrayDeterminant[i][j] = int(listArrayDeterminant[count])
+                count += 1
+
+    np.asarray(arrayDeterminant)
+
+
+    if len(arrayDeterminant) != 0 :
+        determinant = linalg.det(arrayDeterminant).round
+        
+
+        context["arrayDeterminant"] = arrayDeterminant
+        context["determinant"] = determinant
+        print(determinant)
+
+    return render(request,'pages/determinant.html',context)
 
 #View for matrix rules in numeric methods page
 def matrixLawOfEquality(request):  

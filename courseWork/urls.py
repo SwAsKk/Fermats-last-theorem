@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.index),
     path('numericmethods/', views.numericMehods),
     path('numericmethods/matrixrules', views.matrixLawOfEquality),
+    path('numericmethods/determinant',views.determinant),
 ]
