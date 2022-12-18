@@ -56,6 +56,12 @@
 
 </br>
 </br>
+{% if not request.user.is_authenticated %}
+    <div class="div card2">
+      <h1 style="text-align: center;">Чтобы пользоваться калькулятором необходимо <a href="/login/">авторизоваться</a></h1>
+    </div>
+{% endif %}
+{% if request.user.is_authenticated %}
     <div class="card2" style="text-align: center;" >
       <h1 style="text-align: center;">Вычисление определителя</h1>
       <h1 style="text-align: center;">Введите размерность матриц</h1>
@@ -99,6 +105,7 @@
     {% endif %}
  
     </div>
+{% endif %}
     
   </section>
 
