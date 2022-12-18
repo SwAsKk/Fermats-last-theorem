@@ -6,7 +6,10 @@ from django.shortcuts import render
 import numpy as np
 from numpy import linalg
 
-from main.forms import SizeForm
+from main.forms import *
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect
+from django.views import View
 
 # Create your views here.
 def base_context(request):
@@ -19,6 +22,58 @@ def index(request):
     context["site_name"] = "Последняя теорема Фарма"  # Строка перед | в title страницы
     context["page_name"] = "Главная"  # Строка после |
     return render(request,'pages/index.html', context)
+
+
+
+class LoginView(View):
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'login.html', context={'form': form})
+
+
+    def post(self, request):
+        bound_form = LoginForm(request.POST)
+
+        if bound_form.is_valid():
+            login_user = bound_form.cleaned_data['login']
+            password = bound_form.cleaned_data['password']
+
+            user = authenticate(username=login_user, password=password)
+            if user:
+                login(request, user)
+                return HttpResponseRedirect('/')
+
+        return render(request, 'login.html', context={'form':bound_form})
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+
+class RegistrView(View):
+    def get(self, request):
+        form = RegisterForm()
+        return render(request, 'register.html', context={'form': form})
+
+    def post(self, request):
+        bound_form = RegisterForm(request.POST)
+
+        if bound_form.is_valid():
+            new_user = bound_form.save_user()
+            if (request.user.is_staff):
+                return render(request, 'index.html')
+            else:
+                return HttpResponseRedirect('/')
+
+        return render(request, 'register.html', context={'form': bound_form})
+
+
+def profile(request):
+    context = base_context(request)
+    context["site_name"] = "Личный кабинет"
+    return render (request,'personal.html',context)
+
 
 #View for numeric methods page
 def numericMehods(request):

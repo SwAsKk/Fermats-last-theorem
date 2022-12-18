@@ -24,4 +24,8 @@ urlpatterns = [
     path('numericmethods/', views.numericMehods),
     path('numericmethods/matrixrules', views.matrixLawOfEquality),
     path('numericmethods/determinant',views.determinant),
+    path('login/', views.LoginView.as_view(), name='login_url'),
+    path('logout/', views.logout_view, name='logout_url'),
+    path('registration/', views.RegistrView.as_view(), name='reg_url'),
+    path('profile/', views.profile)
 ]
