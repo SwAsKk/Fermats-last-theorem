@@ -27,5 +27,6 @@ urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login_url'),
     path('logout/', views.logout_view, name='logout_url'),
     path('registration/', views.RegistrView.as_view(), name='reg_url'),
-    path('profile/', views.profile)
+    path('profile/', views.profile),
+    path('numericmethods/gauss',views.gauss_method)
 ]

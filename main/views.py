@@ -83,6 +83,12 @@ def numericMehods(request):
     return render(request, 'pages/numericMethods.html', context)
 
 
+def gauss_method(request):
+    context={}
+    context["site_name"] = "Численные методы"
+    context["page_name"] = "Метод Гаусса"
+    return render(request,'pages/gauss.html', context)
+
 #View for finding determinant of matrix in numerical methods
 def determinant(request):
     context={}

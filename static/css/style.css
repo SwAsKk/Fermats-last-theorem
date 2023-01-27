@@ -107,3 +107,9 @@ td {
 input {outline:none;}
 input:active {outline:none;}
 :focus {outline:none;}
+
+
+.profile_link{
+  text-decoration: none;
+  color: black;
+}
