@@ -5,4 +5,39 @@
 {% block js %}
 {% endblock js %}
 {% block content %}
+
+{% if request.user.is_authenticated %}
+    <div class="card2" style="text-align: center;" >
+      <h1 style="text-align: center;">Решение СЛАУ методом Гаусса.</h1>
+      <h1 style="text-align: center;">Введите размерность матрицы:</h1>
+      <form action="" method="post">
+        {% csrf_token %}
+        <input type="number" id="size" name="size" min="2" max="6" required/>
+        <input type="submit"/>
+        </form>
+        
+        <form action="" method="post">
+          <input type="text" name="matrix" id="matrix" style="display: none"/>
+          <table class="table0">
+           {% csrf_token %}
+            {% for j in n_value %}
+            
+              <tr>
+                {% for i in j_value %}
+                <td class="TblCl">
+                  <input type="number" name="fake_matrix" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off" required />
+                </td>{% endfor %}
+                
+              </tr>
+            {% endfor %}
+           
+        </table>
+
+        <input type="submit" value ="Рассчитать"/>
+       </table>
+        
+        
+      </form>
+    </div>
+{% endif %}
 {% endblock content %}

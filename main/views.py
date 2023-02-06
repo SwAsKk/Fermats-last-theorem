@@ -87,7 +87,63 @@ def gauss_method(request):
     context={}
     context["site_name"] = "Численные методы"
     context["page_name"] = "Метод Гаусса"
+
+    if request.method == "POST":
+        #get value of size user input and parse it into context
+        context["n_value"] = range(int(request.POST.get('size',0)))
+        #get the same value to generate extra table tr's
+        context["s_value"] = int(request.POST.get('size',0)) 
+        iterable_for_template = context["s_value"]
+        iterable_for_template = iterable_for_template +1
+        print(iterable_for_template)
+        #for generating table
+        context["j_value"] = range(int(iterable_for_template))
+        print(context["s_value"])
+        
+
+    list_array_gauss = request.POST.getlist('fake_matrix')
+    print(list_array_gauss)
+    array_gauss = []
+    if len(list_array_gauss) != 0:
+        for с in range(round(len(list_array_gauss)**0.5)):
+            array_gauss.append([0]*round(len(list_array_gauss)//2))
+        count = 0
+        for i in range (round(len(list_array_gauss)**0.5)):
+            for j in range (round(len(list_array_gauss)//2)):
+                array_gauss[i][j] = int(list_array_gauss[count])
+                count += 1
+
+    np.asarray(array_gauss)
+    print(array_gauss)
     return render(request,'pages/gauss.html', context)
+"""
+    if len(array_gauss) != 0:
+        def make_triangle_naive(array_gauss):
+            for nrow, row in enumerate(array_gauss):
+                divider = row[nrow]
+                row /= divider
+
+                for lower_row in array_gauss[nrow+1:]:
+                    factor = lower_row[nrow]
+                    lower_row -= factor*row
+            return array_gauss
+        
+        def make_identity(array_gauss):
+            for nrow in range(len(array_gauss)-1,0,-1):
+                row = array_gauss[nrow]
+                for upper_row in array_gauss[:nrow]:
+                    factor = upper_row[nrow]
+                    upper_row[-1] -= factor*row[-1]
+                    upper_row[nrow] = 0
+            return array_gauss
+        m1 = make_triangle_naive(np.copy(array_gauss))
+        m2=make_identity(m1)
+        roots=m2[:,-1]
+        print(roots)
+"""
+
+
+    
 
 #View for finding determinant of matrix in numerical methods
 def determinant(request):
