@@ -110,37 +110,34 @@ def gauss_method(request):
         count = 0
         for i in range (round(len(list_array_gauss)**0.5)):
             for j in range (round(len(list_array_gauss)//2)):
-                array_gauss[i][j] = int(list_array_gauss[count])
+                array_gauss[i][j] = float(list_array_gauss[count])
                 count += 1
 
-    np.asarray(array_gauss)
-    print(array_gauss)
-    return render(request,'pages/gauss.html', context)
-"""
-    if len(array_gauss) != 0:
-        def make_triangle_naive(array_gauss):
-            for nrow, row in enumerate(array_gauss):
-                divider = row[nrow]
-                row /= divider
+    array_gauss1=np.asarray(array_gauss)
+    print(array_gauss1)
+    
 
-                for lower_row in array_gauss[nrow+1:]:
-                    factor = lower_row[nrow]
-                    lower_row -= factor*row
-            return array_gauss
+    if len(array_gauss1) != 0:
+        for nrow,row in enumerate(array_gauss1):
+            divider = row[nrow]
+            row /= divider
+            for lower_row in array_gauss1[nrow+1:]:
+                factor = lower_row[nrow]
+                lower_row -= factor*row
+        for nrow in range(len(array_gauss1)-1,0,-1):
+            row = array_gauss1[nrow]
+            for upper_row in array_gauss1[:nrow]:
+                factor = upper_row[nrow]
+                upper_row[-1] -= factor*row[-1]
+                upper_row[nrow] = 0
         
-        def make_identity(array_gauss):
-            for nrow in range(len(array_gauss)-1,0,-1):
-                row = array_gauss[nrow]
-                for upper_row in array_gauss[:nrow]:
-                    factor = upper_row[nrow]
-                    upper_row[-1] -= factor*row[-1]
-                    upper_row[nrow] = 0
-            return array_gauss
-        m1 = make_triangle_naive(np.copy(array_gauss))
-        m2=make_identity(m1)
-        roots=m2[:,-1]
+        m1=np.copy(array_gauss1)
+        roots=m1[:,-1]
         print(roots)
-"""
+    return render(request,'pages/gauss.html', context)
+
+
+        
 
 
     
