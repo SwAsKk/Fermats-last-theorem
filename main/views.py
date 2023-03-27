@@ -137,11 +137,6 @@ def gauss_method(request):
     return render(request,'pages/gauss.html', context)
 
 
-        
-
-
-    
-
 #View for finding determinant of matrix in numerical methods
 def determinant(request):
     context={}
@@ -196,7 +191,6 @@ def matrixLawOfEquality(request):
 
     #Declaring of second array 
     secondArray = []
-
     
     #Filling first array using listArray. (round(len(listArray)**0.5)) is for correct filling. Saying easy it's size of arrays 
     if len(listArray) != 0:
@@ -243,10 +237,6 @@ def matrixLawOfEquality(request):
 
     #Result of right side of rule = AC + BC
         resultOfRightSide = np.add(multiplicationOfFirstAndThirdMatrix, multiplicationOfSecondAndThirdMatrix)
-
-
-
-
 
     #Getting first and second array to context to display on site
         context["firstArray"] = fisrtArray

@@ -5,30 +5,39 @@
   <div class="container">
     <a href="/" class="navbar-brand mx-auto">
       <img src="{% static 'imgs\logoPet.svg' %}" width="120" height="100">
-    </a> 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="#">Главная</a>
-        <a class="nav-item nav-link" href="/numericmethods/">Численные методы</a>
-        <a class="nav-item nav-link" href="#">Математическое моделирование</a>
-        <a class="nav-item nav-link" href="#">Высшая математика</a>
-        <a class="nav-item nav-link" href="/numericmethods/matrixrules">Правила матриц</a>
-        <a href="/numericmethods/determinant" class="nav-item nav-link">Определитель матрицы</a>
-        <a href="/numericmethods/gauss" class="nav-item nav-link">Решения СЛАУ методом Гаусса</a>
+        <ul>
+          <li><a href="/" class="nav-item nav-link">Главная</a></li>
+          <li>
+            <a href="/numericalmethods/" class="nav-item nav-link">Численные методы</a>
+            <ul>
+              <li><a class="nav-item nav-link" href="/numericmethods/matrixrules">Правила матриц</a></li>
+              <li><a href="/numericmethods/determinant" class="nav-item nav-link">Определитель матрицы</a></li>
+              <li><a href="/numericmethods/gauss" class="nav-item nav-link">Решения СЛАУ методом Гаусса</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-item nav-link" href="#">Математическое моделирование</a></li>
+          <li><a class="nav-item nav-link" href="#">Высшая математика</a></li>
+        </ul>
+
+
       </div>
-    </div>    
+    </div>
   </div>
   <div class="mx-auto">
     {% if request.user.is_authenticated %}
-      <a href="/profile/" class="profile_link">{{ request.user.username }}</a>
-      
-      <a class="btn btn-primary" href="/logout/">Выйти</a>
+    <a href="/profile/" class="profile_link">{{ request.user.username }}</a>
+
+    <a class="btn btn-primary" href="/logout/">Выйти</a>
     {% else %}
-      <a class="btn btn-outline-danger me-2" href="/login/">Войти</a>
-      <a  class="btn btn-outline-warning" href="/registration/">Регистрация</a>
+    <a class="btn btn-outline-danger me-2" href="/login/">Войти</a>
+    <a class="btn btn-outline-warning" href="/registration/">Регистрация</a>
 
     {% endif %}
   </div>
@@ -38,4 +47,3 @@
 
 <section id="bg">
 </section>
-
