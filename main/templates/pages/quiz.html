@@ -1,0 +1,17 @@
+<h1>{{ quiz.title }}</h1>
+<p>{{ quiz.description }}</p>
+
+<form method="post" action="{% url 'submit_quiz' quiz.id %}">
+  {% csrf_token %}
+  {% for question in questions %}
+    <h2>{{ question.text }}</h2>
+    {% for answer in question.answer_set.all %}
+      <label>
+        <input type="radio" name="answer_{{ question.id }}" value="{{ answer.id }}">
+        {{ answer.text }}
+      </label>
+    {% endfor %}
+  {% endfor %}
+  <br>
+  <button type="submit">Submit</button>
+</form>

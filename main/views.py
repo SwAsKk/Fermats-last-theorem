@@ -1,11 +1,6 @@
-from multiprocessing import context
-from pickle import GET
-from tkinter import N
-from urllib import request
 from django.shortcuts import render
 import numpy as np
 from numpy import linalg
-
 from main.forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
@@ -245,3 +240,20 @@ def matrixLawOfEquality(request):
         context["resultOfLeftSide"] = resultOfLeftSide
         context["resultOfRightSide"] = resultOfRightSide
     return render(request, 'pages/matrixlaws.html', context)
+
+def quiz(request, quiz_id):
+    quiz = Quiz.objects.get(id=quiz_id)
+    questions = Question.objects.filter(quiz=quiz)
+    return render(request, 'pages/quiz.html', {'quiz': quiz, 'questions': questions})
+
+def submit_quiz(request, quiz_id):
+    quiz = Quiz.objects.get(id=quiz_id)
+    questions = Question.objects.filter(quiz=quiz)
+    score = 0
+    for question in questions:
+        answer_id = request.POST.get('answer_' + str(question.id))
+        if answer_id:
+            answer = Answer.objects.get(id=int(answer_id))
+            if answer.is_correct:
+                score += 1
+    return render(request, 'pages/results.html', {'score': score, 'total': len(questions)})

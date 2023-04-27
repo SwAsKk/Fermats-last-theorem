@@ -28,5 +28,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout_url'),
     path('registration/', views.RegistrView.as_view(), name='reg_url'),
     path('profile/', views.profile),
-    path('numericmethods/gauss',views.gauss_method)
+    path('numericmethods/gauss',views.gauss_method),
+    path('quiz/<int:quiz_id>/', views.quiz, name='quiz'),
+    path('quiz/<int:quiz_id>/submit/', views.submit_quiz,name='submit_quiz'),
 ]
