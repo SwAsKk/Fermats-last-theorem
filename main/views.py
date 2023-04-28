@@ -64,7 +64,7 @@ class RegistrView(View):
 
         return render(request, 'register.html', context={'form': bound_form})
 
-
+@login_required
 def profile(request):
     context = base_context(request)
     context["site_name"] = "Личный кабинет"
@@ -72,6 +72,8 @@ def profile(request):
     context["results"] = results
     return render (request,'personal.html',context)
 
+def page_not_found(request,exception):
+    return render(request,'404.html', status=404)
 
 #View for numeric methods page
 def numericMehods(request):
