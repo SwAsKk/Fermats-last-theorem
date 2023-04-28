@@ -3,6 +3,7 @@ import numpy as np
 from numpy import linalg
 from main.forms import *
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.views import View
 
@@ -67,6 +68,8 @@ class RegistrView(View):
 def profile(request):
     context = base_context(request)
     context["site_name"] = "Личный кабинет"
+    results = QuizResult.objects.filter(user=request.user)
+    context["results"] = results
     return render (request,'personal.html',context)
 
 
@@ -77,7 +80,12 @@ def numericMehods(request):
     context["page_name"] = "Главная"
     return render(request, 'pages/numericMethods.html', context)
 
-
+def crammer_method(request):
+    context = {}
+    context["site_name"] = "Численные методы"
+    context["page_name"] = "Метод Крамера"
+    return render(request,'pages/crammer.html',context)
+ 
 def gauss_method(request):
     context={}
     context["site_name"] = "Численные методы"
@@ -246,14 +254,17 @@ def quiz(request, quiz_id):
     questions = Question.objects.filter(quiz=quiz)
     return render(request, 'pages/quiz.html', {'quiz': quiz, 'questions': questions})
 
+@login_required
 def submit_quiz(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
     questions = Question.objects.filter(quiz=quiz)
     score = 0
+    total = len(questions)
     for question in questions:
         answer_id = request.POST.get('answer_' + str(question.id))
         if answer_id:
             answer = Answer.objects.get(id=int(answer_id))
             if answer.is_correct:
                 score += 1
-    return render(request, 'pages/results.html', {'score': score, 'total': len(questions)})
+    result = QuizResult.objects.create(quiz=quiz, user=request.user, score=score, total=total)
+    return render(request, 'pages/results.html', {'quiz': quiz, 'score': score, 'total': total})

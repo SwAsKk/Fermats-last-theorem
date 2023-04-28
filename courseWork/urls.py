@@ -31,4 +31,7 @@ urlpatterns = [
     path('numericmethods/gauss',views.gauss_method),
     path('quiz/<int:quiz_id>/', views.quiz, name='quiz'),
     path('quiz/<int:quiz_id>/submit/', views.submit_quiz,name='submit_quiz'),
+    path('numericmethods/crammer',views.crammer_method),
+    
+    
 ]

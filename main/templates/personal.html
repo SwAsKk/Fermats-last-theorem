@@ -10,10 +10,11 @@
 {% block content %}
 {% if not request.user.is_authenticated %}
 <section class="container">
-    <div class="card2">
-        <h1 style="text-align:center;">Пожалуйста, авторизуйтесь, чтобы пользоваться личным кабинетом пользователя</h1>
-        <p >Вы сможете сохранять результаты своих вычислений, добавлять страницы в список для чтения, а также писать посты/задавать вопросы в блоге</p>
-      </div>
+  <div class="card2">
+    <h1 style="text-align:center;">Пожалуйста, авторизуйтесь, чтобы пользоваться личным кабинетом пользователя</h1>
+    <p>Вы сможете сохранять результаты своих вычислений, добавлять страницы в список для чтения, а также писать
+      посты/задавать вопросы в блоге</p>
+  </div>
 
 </section>
 {% endif %}
@@ -23,10 +24,19 @@
 
 {% if request.user.is_authenticated %}
 <section class="container">
-    <div class="card2">
-        <h1 style="text-align:center;">Здравствуйте, {{ request.user.username }}</h1>
-        <p >Добро пожаловать в личный кабинет пользователя.</p>
-      </div>
+  <div class="card2">
+    <h1 style="text-align:center;">Здравствуйте, {{ request.user.username }}</h1>
+    <p>Добро пожаловать в личный кабинет пользователя.</p>
+  </div>
+
+  {% for i in results %}
+  <div class="card1">
+    <h1 style="text-align: center;">Результат тестирования</h1>
+    <h3 style="text-align: center;">{{i.quiz}}</h3>
+    <p>Вы набрали {{i.score}} баллов из {{i.total}}</p>
+    <p>Тест пройден {{i.date_taken}}</p>
+  </div>
+  {% endfor %}
 
 </section>
 {% endif %}
