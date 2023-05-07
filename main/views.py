@@ -251,6 +251,7 @@ def matrixLawOfEquality(request):
         context["resultOfRightSide"] = resultOfRightSide
     return render(request, 'pages/matrixlaws.html', context)
 
+@login_required
 def quiz(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
     questions = Question.objects.filter(quiz=quiz)

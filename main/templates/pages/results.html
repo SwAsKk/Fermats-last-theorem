@@ -1,2 +1,12 @@
-<h1>Your Results</h1>
-<p>You scored {{ score }} out of {{ total }}.</p>
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+{% endblock css %}
+{% block js %}
+{% endblock js %}
+{% block content %}
+<div class="card2">
+    <h1 style="text-align: center;">Результаты тестирования по теме</h1>
+    <h2 style="text-align: center;">Вы набрали {{score}} из {{total}}</h2>
+</div>
+{% endblock content %}
