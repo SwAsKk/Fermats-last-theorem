@@ -1,14 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-{% block css %}
-{% endblock css %}
-{% block js %}
-{% endblock js %}
 {% block content %}
-
-<script src="{% static 'js/jquery.min.js' %}"></script>  <!-- Add this line before the closing </body> tag -->
-
-<script>
+  <script src="{% static 'js/jquery.min.js' %}"></script>  <!-- Add this line before the closing </body> tag -->
+  <script>
   $(document).ready(function() {
     // Handle the form submission using AJAX
     $('#sizeForm').on('submit', function(event) {
@@ -28,18 +22,18 @@
       });
     });
   });
-</script>
-{% if request.user.is_authenticated %}
-<div class="card2" style="text-align: center;">
-  <h1 style="text-align: center;">Решение СЛАУ методом Гаусса.</h1>
-  <h1 style="text-align: center;">Введите размерность матрицы:</h1>
-  <form id="sizeForm" action="" method="post">
-    {% csrf_token %}
-    <input type="number" id="size" name="size" min="2" max="6" required />
-    <input type="submit" value="Submit" />
-  </form>
-
-  <div class="table0"></div>  <!-- The table will be inserted here dynamically -->
-</div>
-{% endif %}
+  </script>
+  {% if request.user.is_authenticated %}
+    <div class="card2 text-center">
+      <h1 class="text-center">Решение СЛАУ методом Гаусса.</h1>
+      <h1 class="text-center">Введите размерность матрицы:</h1>
+      <form id="sizeForm" action="" method="post">
+        {% csrf_token %}
+        <input type="number" id="size" name="size" min="2" max="6" required />
+        <input type="submit" value="Submit" />
+      </form>
+      <div class="table0"></div>
+      <!-- The table will be inserted here dynamically -->
+    </div>
+  {% endif %}
 {% endblock content %}

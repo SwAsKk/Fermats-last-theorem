@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "fermats"
+version = "0.1.0"
+description = ""
+authors = ["SwAsKk"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = "^4.2.1"
+whitenoise = "^6.4.0"
+django-baton = "^2.7.1"
+numpy = "^1.24.3"
+
+[tool.poetry.group.dev.dependencies]
+djlint = "^1.28.0"
+black = "^23.3.0"
+pyclean = "^2.7.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

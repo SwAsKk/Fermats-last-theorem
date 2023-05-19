@@ -1,23 +1,27 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
 <hgroup>
-    <h1>Вход</h1>
-  </hgroup>
-  <form class="form-signin" method="post">
-    {% csrf_token %}
-    <div class="group">
-        {{ form.login }}
-      <label>Логин</label>
-    </div>
-    <div class="group">
-        {{ form.password }}
-      <label>Пароль</label>
-    </div>
-    
-    {{form.errors}}
-    <button class="button buttonBlue" type="submit">Войти</button>
-  </form>
-  <footer><a target="_blank"><img src="{%static 'imgs/logoPet.svg'%}"></a>
-    <p class="mt-5 mb-3 text-muted">©2023</p>
-  </footer>
-  
+  <h1>Вход</h1>
+</hgroup>
+<form class="form-signin" method="post" action="">
+  {% csrf_token %}
+  <div class="group">
+    {{ form.login }}
+    <label>Логин</label>
+  </div>
+  <div class="group">
+    {{ form.password }}
+    <label>Пароль</label>
+  </div>
+  {{ form.errors }}
+  <button class="button buttonBlue" type="submit">Войти</button>
+</form>
+<footer>
+  <a target="_blank">
+    <img alt=""
+         width="auto"
+         height="auto"
+         src="{% static 'imgs/logoPet.svg' %}" />
+  </a>
+  <p class="mt-5 mb-3 text-muted">©2023</p>
+</footer>

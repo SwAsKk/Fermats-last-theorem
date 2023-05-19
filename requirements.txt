@@ -1,0 +1,6 @@
+django
+whitenoise
+django-baton
+numpy
+black
+djlint

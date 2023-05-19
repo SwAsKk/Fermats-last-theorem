@@ -1,12 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-{% block css %}
-{% endblock css %}
-{% block js %}
-{% endblock js %}
 {% block content %}
-<div class="card2">
-    <h1 style="text-align: center;">Результаты тестирования по теме</h1>
-    <h2 style="text-align: center;">Вы набрали {{score}} из {{total}}</h2>
-</div>
+    <div class="card2">
+        <h1 class="text-center">Результаты тестирования по теме</h1>
+        <h2 class="text-center">Вы набрали {{ score }} из {{ total }}</h2>
+    </div>
 {% endblock content %}

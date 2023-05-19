@@ -1,17 +1,17 @@
 {% load static %}
-
-<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-  <p class="col-md-4 mb-0 text-muted" style="padding:10px;"> ©Novak Gayos & co. 2022</p>
-
-  <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-    <img src="{% static 'imgs\logoPet.svg' %}" width="120" height="100" style="margin: 10px;">
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top px-3">
+  <p class="col-md-4 mb-0 text-muted p-3">© Novak Gayos & co. {% now "Y" %}</p>
+  <a href="{% url 'index' %}"
+     class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+    <img src="{% static 'imgs\logoPet.svg' %}"
+         alt=""
+         class="m-3"
+         width="120"
+         height="100" />
   </a>
-
   <ul class="nav col-md-4 justify-content-end">
     <li class="nav-item">
-      <a href="/" class="nav-link px-2 text-muted">Home</a>
+      <a href="{% url 'index' %}" class="nav-link px-2 text-muted">Главная</a>
     </li>
   </ul>
 </footer>
- 
-

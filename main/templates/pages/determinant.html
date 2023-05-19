@@ -1,91 +1,161 @@
 {% extends "base.html" %}
 {% load static %}
-{% block css %}
-{% endblock css %}
-{% block js %}
-{% endblock js %}
 {% block content %}
-<section class="container">
-  <div class="card2">
-    <h1 class="headOfCard" style="text-align:center">Определитель матрицы. Свойства определителя и методы его вычисления
-    </h1>
-    <p>С квадратной матрицей A=[aij] связан определитель(детерминант), который обозначается det A или |A|:</p>
-    <img src="{%static 'imgs/formula2.jpg'%}"></img>
-    <p>Определитель матрицы есть число, вычисляемое по некоторым правилам, которые мы рассмотрим ниже. В определителе
-      различают две диагонали: главную и побочную. Главная диагональ, так же, как и в квадратной матрице, состоит из
-      элементов aij,где i= 1,2,...n.</p>
-    <p>Побочная диагональ проходит перпендикулятно главной, из верхнего правого угла определителя в нижний левый.
-      Порядок определителя соответствует порядку матрицы, определителем которой он является.</p>
-    <p>Определитель второго порядка равен произведению элементов главной матрицы диагонали минус произведение элементов
-      побочной диагонали:</p>
-    <img src="{%static 'imgs/formula1.jpg'%}"></img>
-  </div>
-  <br />
-  <br />
-  <div class="card2">
-    <h1 style="text-align: center;">Определителем третьего порядка называется число</h1>
-    <img src="{%static 'imgs/formula3.jpg'%}"></img>
-    <p>Таким образом, каждый член определителя третьего порядка представляет собой произведение трёх его элементов,
-      взятых по одному из каждой строки и каждого столбца.</p>
-    <img src="{%static 'imgs/formula4.jpg'%}"></img>
-    <p>Эти произведения берутся с определёнными знаками: со знаками плюс - три члена, состоящие из элементов главной
-      диагонали и из элементов, расположенных в вершинах равнобедренных треугольников с основаниями, параллельными
-      главной диагонали;</p>
-    <p>Со знаками минус - три члена, расположенные аналогичным образом относительно побочной диагонали.</p>
-    <h1 style="text-align: center;">Указанное правило называется правилом треугольников</h1>
-  </div>
-  <br />
-  <br />
-  <div class="card2">
-    <h1 style="text-align: center;">Теперь перечислим свойства определителя</h1>
-    <p>1. Определитель не меняется при транспонировании:</p>
-    <img src="{%static 'imgs/formula5.jpg'%}"></img>
-    <p>2. Если одна из строк или один из столбцов определителя состоит из нулей, то определитель равен нулю. Пример:
-    </p>
-    <img src="{%static 'imgs/formula6.jpg'%}"></img>
-    <p>3. От перестановки двух строк или двух столбцов определитель меняет только знак. Пример: </p>
-    <img src="{%static 'imgs/formula7.jpg'%}"></img>
-    <p>4. Определитель содержащий две одинаковые строки или два одинаковых столбца, равен нулю. Пример: </p>
-    <img src="{%static 'imgs/formula8.jpg'%}"></img>
-    <p>5. Если все элементы некоторой строки или столбца определителя умножить на число k≠0, то сам определитель
-      умножится на это число. Иначе это свойство можно сформулировать так: </p>
-    <p>Общий множитель всех элементов некоторой строки или некоторого столбца можно вынести за знак определителя.
-      Пример: </p>
-    <img src="{%static 'imgs/formula9.jpg'%}"></img>
-    <p>6. Определитель, содержащий две пропорциональные строки, равен нулю. Пример: </p>
-    <img src="{%static 'imgs/formula10.jpg'%}"></img>
-    <p>7. Если все элементы i-й строки определителя n-ого порядка представлены в виде суммы двух слогаемых: aij = bij +
-      cij, то данных определитель равен сумме двух определителей, у которых все строки, кроме i-й такие же, как и в
-      заданном определителе, а i-я строка в одном из слагаеммых состоит из элементов bij, а в другом из элементов cij,
-      т.е</p>
-    <img src="{%static 'imgs/formula11.jpg'%}"></img>
-    <p>8. Если одна из строк определителя представляет сумму других строк или сумму произведений других строк
-      определителя на число К, то определеитель равен нулю. (Это следует из свойств 6 и 7 определителя.)</p>
-    <img src="{%static 'imgs/formula12.jpg'%}"></img>
-    <p>9. Определитель не изменится, если к элементам одной из его строк(столбцов) прибавить соответственные элементы
-      другой строки(столбца), умноженные на одно и то же число.</p>
-    <img src="{%static 'imgs/formula13.jpg'%}"></img>
-    <img src="{%static 'imgs/formula14.jpg'%}"></img>
-
-  </div>
-
-
-  </br>
-  </br>
-  {% if not request.user.is_authenticated %}
-  <div class="div card2">
-    <h1 style="text-align: center;">Чтобы пользоваться калькулятором необходимо <a href="/login/">авторизоваться</a>
-    </h1>
-  </div>
-  {% endif %}
-  {% if request.user.is_authenticated %}
+  <section class="container">
     <div class="card2">
-      <h1 style="text-align: center;">Вы можете пройти тестирование по теме "Определитель в численных методах"</h1>
-      <p>Чтобы пройти тестирование, перейдите по ссылке ниже. Результаты тестирования сохранятся в личном кабинете пользователя</p>
-      <a href="/quiz/2/">Тест по теме "Определитель в численных методах"</a>
-    </div>
-  {% endif %}
-  <script>
+      <h1 class="headOfCard text-center">Определитель матрицы. Свойства определителя и методы его вычисления</h1>
+      <p>С квадратной матрицей A=[aij] связан определитель(детерминант), который обозначается det A или |A|:</p>
+      <img src="{% static 'imgs/formula2.jpg' %}"
+           alt=""
+           width="auto"
+           height="auto" />
+    </img>
+    <p>
+      Определитель матрицы есть число, вычисляемое по некоторым правилам, которые мы рассмотрим ниже. В определителе
+      различают две диагонали: главную и побочную. Главная диагональ, так же, как и в квадратной матрице, состоит из
+      элементов aij,где i= 1,2,...n.
+    </p>
+    <p>
+      Побочная диагональ проходит перпендикулятно главной, из верхнего правого угла определителя в нижний левый.
+      Порядок определителя соответствует порядку матрицы, определителем которой он является.
+    </p>
+    <p>
+      Определитель второго порядка равен произведению элементов главной матрицы диагонали минус произведение элементов
+      побочной диагонали:
+    </p>
+    <img src="{% static 'imgs/formula1.jpg' %}"
+         alt=""
+         width="auto"
+         height="auto" />
+  </img>
+</div>
+<br />
+<br />
+<div class="card2">
+  <h1 class="text-center">Определителем третьего порядка называется число</h1>
+  <img src="{% static 'imgs/formula3.jpg' %}"
+       alt=""
+       width="auto"
+       height="auto" />
+</img>
+<p>
+  Таким образом, каждый член определителя третьего порядка представляет собой произведение трёх его элементов,
+  взятых по одному из каждой строки и каждого столбца.
+</p>
+<img src="{% static 'imgs/formula4.jpg' %}"
+     alt=""
+     width="auto"
+     height="auto" />
+</img>
+<p>
+  Эти произведения берутся с определёнными знаками: со знаками плюс - три члена, состоящие из элементов главной
+  диагонали и из элементов, расположенных в вершинах равнобедренных треугольников с основаниями, параллельными
+  главной диагонали;
+</p>
+<p>Со знаками минус - три члена, расположенные аналогичным образом относительно побочной диагонали.</p>
+<h1 class="text-center">Указанное правило называется правилом треугольников</h1>
+</div>
+<br />
+<br />
+<div class="card2">
+  <h1 class="text-center">Теперь перечислим свойства определителя</h1>
+  <p>1. Определитель не меняется при транспонировании:</p>
+  <img src="{% static 'imgs/formula5.jpg' %}"
+       alt=""
+       width="auto"
+       height="auto" />
+</img>
+<p>2. Если одна из строк или один из столбцов определителя состоит из нулей, то определитель равен нулю. Пример:</p>
+<img src="{% static 'imgs/formula6.jpg' %}"
+     alt=""
+     width="auto"
+     height="auto" />
+</img>
+<p>3. От перестановки двух строк или двух столбцов определитель меняет только знак. Пример:</p>
+<img src="{% static 'imgs/formula7.jpg' %}"
+     alt=""
+     width="auto"
+     height="auto" />
+</img>
+<p>4. Определитель содержащий две одинаковые строки или два одинаковых столбца, равен нулю. Пример:</p>
+<img src="{% static 'imgs/formula8.jpg' %}"
+     alt=""
+     width="auto"
+     height="auto" />
+</img>
+<p>
+  5. Если все элементы некоторой строки или столбца определителя умножить на число k≠0, то сам определитель
+  умножится на это число. Иначе это свойство можно сформулировать так:
+</p>
+<p>
+  Общий множитель всех элементов некоторой строки или некоторого столбца можно вынести за знак определителя.
+  Пример:
+</p>
+<img src="{% static 'imgs/formula9.jpg' %}"
+     alt=""
+     width="auto"
+     height="auto" />
+</img>
+<p>6. Определитель, содержащий две пропорциональные строки, равен нулю. Пример:</p>
+<img src="{% static 'imgs/formula10.jpg' %}"
+     alt=""
+     width="auto"
+     height="auto" />
+</img>
+<p>
+  7. Если все элементы i-й строки определителя n-ого порядка представлены в виде суммы двух слогаемых: aij = bij +
+  cij, то данных определитель равен сумме двух определителей, у которых все строки, кроме i-й такие же, как и в
+  заданном определителе, а i-я строка в одном из слагаеммых состоит из элементов bij, а в другом из элементов cij,
+  т.е
+</p>
+<img src="{% static 'imgs/formula11.jpg' %}"
+     alt=""
+     width="auto"
+     height="auto" />
+</img>
+<p>
+  8. Если одна из строк определителя представляет сумму других строк или сумму произведений других строк
+  определителя на число К, то определеитель равен нулю. (Это следует из свойств 6 и 7 определителя.)
+</p>
+<img src="{% static 'imgs/formula12.jpg' %}"
+     alt=""
+     width="auto"
+     height="auto" />
+</img>
+<p>
+  9. Определитель не изменится, если к элементам одной из его строк(столбцов) прибавить соответственные элементы
+  другой строки(столбца), умноженные на одно и то же число.
+</p>
+<img src="{% static 'imgs/formula13.jpg' %}"
+     alt=""
+     width="auto"
+     height="auto" />
+</img>
+<img src="{% static 'imgs/formula14.jpg' %}"
+     alt=""
+     width="auto"
+     height="auto" />
+</img>
+</div>
+</br>
+</br>
+{% if not request.user.is_authenticated %}
+  <div class="div card2">
+    <h1 class="text-center">
+      Чтобы пользоваться калькулятором необходимо <a href="{% url 'login_url' %}">авторизоваться</a>
+    </h1>
+  </div>
+{% endif %}
+{% if request.user.is_authenticated %}
+  <div class="card2">
+    <h1 class="text-center">Вы можете пройти тестирование по теме "Определитель в численных методах"</h1>
+    <p>
+      Чтобы пройти тестирование, перейдите по ссылке ниже. Результаты тестирования сохранятся в личном кабинете пользователя
+    </p>
+    <a href="{% url 'quiz' quiz_id=2 %}">Тест по теме "Определитель в численных методах"</a>
+  </div>
+{% endif %}
+<script>
     $(document).ready(function() {
       // Handle the form submission using AJAX
       $('#sizeForm').on('submit', function(event) {
@@ -98,47 +168,45 @@
           success: function(response) {
             // Update the table dynamically using the response data
             $('.matrix_container').html(response.tableHTML);
+            $('#matrix_container').on('submit', function(event){
+              event.preventDefault();
+              const formData = $(this).serialize();
+              $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                success: function(response) {
+                  $('.card1').html(response.resultsHTML);
+                },
+                error: function(xhr, errmsg, err) {
+                console.error('Request failed. Error code:', xhr.status);
+            }
+          });
+        });
           },
           error: function(xhr, errmsg, err) {
             console.error('Request failed. Error code:', xhr.status);
           }
         });
       });
-      $('.matrix_container').on('submit', function(event){
-        event.preventDefault();
-        const formData = $(this).serialize();
-        $.ajax({
-          type: 'POST',
-          url: $(this).attr('action'),
-          data: formData,
-          success: function(response) {
-            console.log(response.resultsHTML);
-            $('.card1').html(response.resultsHTML);
-          },
-          error: function(xhr, errmsg, err) {
-          console.error('Request failed. Error code:', xhr.status);
-      }
-    });
-  });
+      
     });  
-  </script>
-  
-  {% if request.user.is_authenticated %}
-  <div class="card2" style="text-align: center;">
-    <h1 style="text-align: center;">Вычисление определителя</h1>
-    <h1 style="text-align: center;">Введите размерность матриц</h1>
+</script>
+{% if request.user.is_authenticated %}
+  <div class="card2 text-center">
+    <h1 class="text-center">Вычисление определителя</h1>
+    <h1 class="text-center">Введите размерность матриц</h1>
     <form id="sizeForm" action="" method="post">
       {% csrf_token %}
-      <input type="number" id="size" name="size" min="2" max="6" required />
-      <input type="submit" value="Submit" />
+      <input type="number" id="size" name="size" min="2" max="6" value={{ n|default:2 }} required />
+      <input type="submit" value="Задать" />
     </form>
-    <div class="matrix_container"></div>  <!-- The table will be inserted here dynamically -->
+    <div class="matrix_container"></div>
+    <!-- The table will be inserted here dynamically -->
   </div>
   <div class="card1"></div>
-  {% endif %}
-
+{% endif %}
 </section>
-
 <style>
   input {
     height: 3em;
