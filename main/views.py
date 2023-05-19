@@ -4,9 +4,12 @@ from numpy import linalg
 from main.forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views import View
-
+import json
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 def base_context(request):
     context = dict()
@@ -87,94 +90,120 @@ def crammer_method(request):
     context["site_name"] = "Численные методы"
     context["page_name"] = "Метод Крамера"
     return render(request,'pages/crammer.html',context)
- 
+@csrf_exempt
 def gauss_method(request):
-    context={}
+    context = {}
     context["site_name"] = "Численные методы"
     context["page_name"] = "Метод Гаусса"
 
     if request.method == "POST":
-        #get value of size user input and parse it into context
-        context["n_value"] = range(int(request.POST.get('size',0)))
-        #get the same value to generate extra table tr's
-        context["s_value"] = int(request.POST.get('size',0)) 
+        # Code to handle AJAX request
+
+        # Get value of size user input and parse it into context
+        context["n_value"] = range(int(request.POST.get('size', 0)))
+        # Get the same value to generate extra table tr's
+        context["s_value"] = int(request.POST.get('size', 0))
         iterable_for_template = context["s_value"]
-        iterable_for_template = iterable_for_template +1
+        iterable_for_template = iterable_for_template + 1
         print(iterable_for_template)
-        #for generating table
+        # For generating table
         context["j_value"] = range(int(iterable_for_template))
         print(context["s_value"])
-        
 
-    list_array_gauss = request.POST.getlist('fake_matrix')
-    print(list_array_gauss)
-    array_gauss = []
-    if len(list_array_gauss) != 0:
-        for с in range(round(len(list_array_gauss)**0.5)):
-            array_gauss.append([0]*round(len(list_array_gauss)//2))
-        count = 0
-        for i in range (round(len(list_array_gauss)**0.5)):
-            for j in range (round(len(list_array_gauss)//2)):
-                array_gauss[i][j] = float(list_array_gauss[count])
-                count += 1
+        list_array_gauss = request.POST.getlist('fake_matrix')
+        print(list_array_gauss)
+        array_gauss = []
+        if len(list_array_gauss) != 0:
+            for с in range(round(len(list_array_gauss) ** 0.5)):
+                array_gauss.append([0] * round(len(list_array_gauss) // 2))
+            count = 0
+            for i in range(round(len(list_array_gauss) ** 0.5)):
+                for j in range(round(len(list_array_gauss) // 2)):
+                    array_gauss[i][j] = float(list_array_gauss[count])
+                    count += 1
 
-    array_gauss1=np.asarray(array_gauss)
-    print(array_gauss1)
-    
+        array_gauss1 = np.asarray(array_gauss)
+        print(array_gauss1)
 
-    if len(array_gauss1) != 0:
-        for nrow,row in enumerate(array_gauss1):
-            divider = row[nrow]
-            row /= divider
-            for lower_row in array_gauss1[nrow+1:]:
-                factor = lower_row[nrow]
-                lower_row -= factor*row
-        for nrow in range(len(array_gauss1)-1,0,-1):
-            row = array_gauss1[nrow]
-            for upper_row in array_gauss1[:nrow]:
-                factor = upper_row[nrow]
-                upper_row[-1] -= factor*row[-1]
-                upper_row[nrow] = 0
-        
-        m1=np.copy(array_gauss1)
-        roots=m1[:,-1]
-        print(roots)
+        if len(array_gauss1) != 0:
+            for nrow, row in enumerate(array_gauss1):
+                divider = row[nrow]
+                row /= divider
+                for lower_row in array_gauss1[nrow + 1:]:
+                    factor = lower_row[nrow]
+                    lower_row -= factor * row
+            for nrow in range(len(array_gauss1) - 1, 0, -1):
+                row = array_gauss1[nrow]
+                for upper_row in array_gauss1[:nrow]:
+                    factor = upper_row[nrow]
+                    upper_row[-1] -= factor * row[-1]
+                    upper_row[nrow] = 0
+
+            m1 = np.copy(array_gauss1)
+            roots = m1[:, -1]
+            print(roots)
+
+        # Generate the updated table HTML
+        table_html = render_to_string('partials/table.html', context)  # Assuming you have a separate HTML template for the table
+
+        # Create a JSON response with the updated table HTML
+        response_data = {
+            'tableHTML': table_html,
+        }
+        return JsonResponse(response_data)
     return render(request,'pages/gauss.html', context)
 
 
 #View for finding determinant of matrix in numerical methods
+@csrf_exempt
 def determinant(request):
-    context={}
+    context = {}
     context["site_name"] = "Численные методы"
     context["page_name"] = "Определитель матрицы"
+   
     if request.method == "POST":
         context["n_value"] = range(int(request.POST.get('size', 0)))
 
-    listArrayDeterminant = request.POST.getlist('fake_matrix')
-    arrayDeterminant = []
+        listArrayDeterminant = request.POST.getlist('fake_matrix')
+        arrayDeterminant = []
 
-    if len(listArrayDeterminant) != 0:
-        for с in range(round(len(listArrayDeterminant)**0.5)):
-            arrayDeterminant.append([0]*round(len(listArrayDeterminant)**0.5))
-        count = 0
-        for i in range (round(len(listArrayDeterminant)**0.5)):
-            for j in range (round(len(listArrayDeterminant)**0.5)):
-                arrayDeterminant[i][j] = int(listArrayDeterminant[count])
-                count += 1
+        if len(listArrayDeterminant) != 0:
+            for с in range(round(len(listArrayDeterminant)**0.5)):
+                arrayDeterminant.append([0]*round(len(listArrayDeterminant)**0.5))
+            count = 0
+            for i in range (round(len(listArrayDeterminant)**0.5)):
+                for j in range (round(len(listArrayDeterminant)**0.5)):
+                    arrayDeterminant[i][j] = int(listArrayDeterminant[count])
+                    count += 1
 
-    np.asarray(arrayDeterminant)
+        np.asarray(arrayDeterminant)
+        print(arrayDeterminant)
+        print(listArrayDeterminant)
 
+        if len(arrayDeterminant) != 0:
+            determinant = round(linalg.det(arrayDeterminant), 2)
 
-    if len(arrayDeterminant) != 0 :
-        determinant = linalg.det(arrayDeterminant).round
+            context["arrayDeterminant"] = arrayDeterminant
+            context["determinant"] = determinant
+            print(determinant)
+          
+        result_html = render_to_string('partials/results_determinant.html', context)
+        table_html = render_to_string('partials/simple_table.html', context)
         
-
-        context["arrayDeterminant"] = arrayDeterminant
-        context["determinant"] = determinant
-        print(determinant)
-
-    return render(request,'pages/determinant.html',context)
-
+        # Create a JSON response with the updated determinant and table HTML
+        response_data = {
+            'tableHTML': table_html,
+            'resultsHTML': result_html,
+        }
+        return JsonResponse(response_data)
+                
+            
+         # Render the partial template for the matrix display
+        
+        
+        
+    # Render the initial page
+    return render(request, 'pages/determinant.html', context)
 #View for matrix rules in numeric methods page
 def matrixLawOfEquality(request):  
     context = {}

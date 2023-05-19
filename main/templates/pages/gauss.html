@@ -6,39 +6,40 @@
 {% endblock js %}
 {% block content %}
 
+<script src="{% static 'js/jquery.min.js' %}"></script>  <!-- Add this line before the closing </body> tag -->
+
+<script>
+  $(document).ready(function() {
+    // Handle the form submission using AJAX
+    $('#sizeForm').on('submit', function(event) {
+      event.preventDefault();  // Prevent the default form submission
+      const formData = $(this).serialize();  // Serialize the form data
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: formData,
+        success: function(response) {
+          // Update the table dynamically using the response data
+          $('.table0').html(response.tableHTML);
+        },
+        error: function(xhr, errmsg, err) {
+          console.error('Request failed. Error code:', xhr.status);
+        }
+      });
+    });
+  });
+</script>
 {% if request.user.is_authenticated %}
 <div class="card2" style="text-align: center;">
   <h1 style="text-align: center;">Решение СЛАУ методом Гаусса.</h1>
   <h1 style="text-align: center;">Введите размерность матрицы:</h1>
-  <form action="" method="post">
+  <form id="sizeForm" action="" method="post">
     {% csrf_token %}
     <input type="number" id="size" name="size" min="2" max="6" required />
-    <input type="submit" />
+    <input type="submit" value="Submit" />
   </form>
 
-  <form action="" method="post">
-    <input type="text" name="matrix" id="matrix" style="display: none" />
-    <table class="table0">
-      {% csrf_token %}
-      {% for j in n_value %}
-
-      <tr>
-        {% for i in j_value %}
-        <td class="TblCl">
-          <input type="number" step="any" name="fake_matrix" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off"
-            required />
-        </td>{% endfor %}
-
-      </tr>
-      {% endfor %}
-
-    </table>
-
-    <input type="submit" value="Рассчитать" />
-    </table>
-
-
-  </form>
+  <div class="table0"></div>  <!-- The table will be inserted here dynamically -->
 </div>
 {% endif %}
 {% endblock content %}

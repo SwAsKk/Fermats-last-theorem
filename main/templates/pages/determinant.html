@@ -85,51 +85,56 @@
       <a href="/quiz/2/">Тест по теме "Определитель в численных методах"</a>
     </div>
   {% endif %}
+  <script>
+    $(document).ready(function() {
+      // Handle the form submission using AJAX
+      $('#sizeForm').on('submit', function(event) {
+        event.preventDefault();  // Prevent the default form submission
+        const formData = $(this).serialize();  // Serialize the form data
+        $.ajax({
+          type: 'POST',
+          url: $(this).attr('action'),
+          data: formData,
+          success: function(response) {
+            // Update the table dynamically using the response data
+            $('.matrix_container').html(response.tableHTML);
+          },
+          error: function(xhr, errmsg, err) {
+            console.error('Request failed. Error code:', xhr.status);
+          }
+        });
+      });
+      $('.matrix_container').on('submit', function(event){
+        event.preventDefault();
+        const formData = $(this).serialize();
+        $.ajax({
+          type: 'POST',
+          url: $(this).attr('action'),
+          data: formData,
+          success: function(response) {
+            console.log(response.resultsHTML);
+            $('.card1').html(response.resultsHTML);
+          },
+          error: function(xhr, errmsg, err) {
+          console.error('Request failed. Error code:', xhr.status);
+      }
+    });
+  });
+    });  
+  </script>
+  
   {% if request.user.is_authenticated %}
   <div class="card2" style="text-align: center;">
     <h1 style="text-align: center;">Вычисление определителя</h1>
     <h1 style="text-align: center;">Введите размерность матриц</h1>
-    <form action="" method="post">
+    <form id="sizeForm" action="" method="post">
       {% csrf_token %}
       <input type="number" id="size" name="size" min="2" max="6" required />
-      <input type="submit" />
+      <input type="submit" value="Submit" />
     </form>
-
-    <form action="" method="post">
-      <input type="text" name="matrix" id="matrix" style="display: none" />
-      <table class="table0">
-        {% csrf_token %}
-        {% for j in n_value %}
-        <tr>
-          {% for i in n_value %}
-          <td class="TblCl">
-            <input type="number" name="fake_matrix" id="inp{{ j }}{{ i }}" placeholder="0" autocomplete="off"
-              required />
-          </td>{% endfor %}
-        </tr>
-        {% endfor %}
-      </table>
-
-      <input type="submit" value="Рассчитать" />
-      </table>
-
-
-    </form>
+    <div class="matrix_container"></div>  <!-- The table will be inserted here dynamically -->
   </div>
-  <div class="card2">
-    {% if arrayDeterminant|length != 0 %}
-    <p>Исходная матрица:</p>
-
-    {% for i in arrayDeterminant %}
-    <h1 class="paragraph"> {{ i }} </h1>
-    {% endfor %}
-
-    <p>Детерминант: </p>
-    <h1 class="paragraph"> {{ determinant }}</h1>
-
-    {% endif %}
-
-  </div>
+  <div class="card1"></div>
   {% endif %}
 
 </section>
