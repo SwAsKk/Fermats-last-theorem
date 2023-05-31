@@ -90,11 +90,78 @@ def numericMehods(request):
     context["page_name"] = "Главная"
     return render(request, "pages/numericMethods.html", context)
 
-
+@csrf_exempt
 def crammer_method(request):
-    context = {}
-    context["site_name"] = "Численные методы"
-    context["page_name"] = "Метод Крамера"
+    context = {"site_name": "Численные методы", "page_name": "Метод Краммера"}
+    if request.method == "POST":
+        n = int(request.POST.get("size",2))
+        n_value = range(n)
+        context["n"] = n 
+        context["n_value"] = n_value
+        A = np.zeros((n,n))
+        b = np.zeros(n)
+
+        list_array_crammer = request.POST.getlist("fake_matrix")
+        list_crammet_vector = request.POST.getlist("fake_matrix_vector")
+        if len(list_array_crammer) != 0:
+            count = 0
+            for i in range(n):
+                for j in range(n):
+                    A[i][j] = int(list_array_crammer[count])
+                    count += 1
+                b[i] = int(list_crammet_vector[i])
+        
+        # Compute determinant of A
+            det_A = np.linalg.det(A)
+        
+            # Convert ndarray to list
+            A = A.tolist()
+            b = b.tolist()
+
+            # Initialize context dictionary
+            context = {
+                'A': A,
+                'b': b,
+                'det_A': det_A,
+                'x': np.zeros(n).tolist(),
+                'step': 0
+            }
+            
+
+            # Check if determinant is nonzero
+            if det_A != 0:
+                # Loop over columns of A to solve for each variable
+                for i in range(n):
+                    # Create copy of A with ith column replaced by b
+                    Ai = [row.copy() for row in A]  # Создать копию каждой строки A
+                    for row in Ai:
+                        row[i] = b[i]
+
+
+                    # Compute determinant of Ai
+                    det_Ai = np.linalg.det(Ai)
+
+                    # Compute solution for ith variable
+                    xi = det_Ai / det_A
+
+                    # Update context dictionary with current step and solution
+                    context['x'][i] = xi
+                    context['step'] = i+1
+                    
+            else:
+                # If determinant is zero, system is inconsistent
+                context['error'] = 'System is inconsistent'    
+        
+        return JsonResponse(
+            {
+                "tableHTML": render_to_string("partials/normal_table.html", context),
+                "resultsHTML": render_to_string(
+                    "partials/results_cramer.html", context
+                )
+                
+            }
+        )
+    
     return render(request, "pages/crammer.html", context)
 
 

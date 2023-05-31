@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <script>
+    $(document).ready(function() {
+      // Handle the form submission using AJAX
+      $('#sizeForm').on('submit', function(event) {
+        event.preventDefault();  // Prevent the default form submission
+        const formData = $(this).serialize();  // Serialize the form data
+        $.ajax({
+          type: 'POST',
+          url: $(this).attr('action'),
+          data: formData,
+          success: function(response) {
+            // Update the table dynamically using the response data
+            $('.matrix_container').html(response.tableHTML);
+            $('#matrix_container').on('submit', function(event){
+              event.preventDefault();
+              const formData = $(this).serialize();
+              $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                success: function(response) {
+                  $('.card1').html(response.resultsHTML);
+                },
+                error: function(xhr, errmsg, err) {
+                console.error('Request failed. Error code:', xhr.status);
+            }
+          });
+        });
+          },
+          error: function(xhr, errmsg, err) {
+            console.error('Request failed. Error code:', xhr.status);
+          }
+        });
+      });
+      
+    });  
+</script>
+{% if request.user.is_authenticated %}
+  <div class="card2 text-center">
+    <h1 class="text-center">Вычисление СЛАУ методом Крамера</h1>
+    <h1 class="text-center">Введите размерность матриц</h1>
+    <form id="sizeForm" action="" method="post">
+      {% csrf_token %}
+      <input type="number" id="size" name="size" min="2" max="6" value={{ n|default:2 }} required />
+      <input type="submit" value="Задать" />
+    </form>
+    <div class="matrix_container"></div>
+    <!-- The table will be inserted here dynamically -->
+  </div>
+  <div class="card1"></div>
+{% endif %}
+{% endblock content %}

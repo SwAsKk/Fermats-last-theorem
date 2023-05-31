@@ -1,0 +1,19 @@
+<div class="card1">
+<h1>Cramer's Method</h1>
+  {% for step in steps %}
+    <hr>
+    <p>Iteration {{ step.0 }}</p>
+    <table>
+      {% for row in step.1 %}
+        <tr>
+          {% for item in row %}
+            <td>{{ item }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </table>
+    <p>Solution: {{ step.3 }}</p>
+  {% endfor %}
+  <hr>
+  <p>Final Solution: {{ x }}</p>
+</div>
