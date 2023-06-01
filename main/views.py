@@ -404,53 +404,53 @@ def iterative_method(request):
                     count += 1
                 b[i] = int(list_iterative_vector[i])
 
-        # Initialize context dictionary
-        context = {
-            'A': A,
-            'b': b,
-            'x': np.zeros(n).tolist(),
-            'step': 0
-        }
+            # Initialize context dictionary
+            context = {
+                'A': A,
+                'b': b,
+                'x': np.zeros(n).tolist(),
+                'step': 0
+            }
 
-        steps = []
+            steps = []
 
-        # Check for diagonal dominance
-        is_diagonally_dominant = True
-        for i in range(n):
-            row_sum = np.sum(np.abs(A[i])) - np.abs(A[i][i])
-            if np.abs(A[i][i]) <= row_sum:
-                is_diagonally_dominant = False
-                break
-        
-        if is_diagonally_dominant:
-            # Loop over iterations of the iterative method
-            x = np.zeros(n)
-            for iteration in range(10):
-                # Compute the next approximation using the iterative method
-                x_next = np.zeros(n)
-                for i in range(n):
-                    sigma = 0
-                    for j in range(n):
-                        if j != i:
-                            sigma += A[i][j] * x[j]
-                    x_next[i] = (b[i] - sigma) / A[i][i]
+            # Check for diagonal dominance
+            is_diagonally_dominant = True
+            for i in range(n):
+                row_sum = np.sum(np.abs(A[i])) - np.abs(A[i][i])
+                if np.abs(A[i][i]) <= row_sum:
+                    is_diagonally_dominant = False
+                    break
+            
+            if is_diagonally_dominant:
+                # Loop over iterations of the iterative method
+                x = np.zeros(n)
+                for iteration in range(10):
+                    # Compute the next approximation using the iterative method
+                    x_next = np.zeros(n)
+                    for i in range(n):
+                        sigma = 0
+                        for j in range(n):
+                            if j != i:
+                                sigma += A[i][j] * x[j]
+                        x_next[i] = (b[i] - sigma) / A[i][i]
 
-                # Compute the error between the current and next approximations
-                error = np.linalg.norm(x_next - x, ord=np.inf)
+                    # Compute the error between the current and next approximations
+                    error = np.linalg.norm(x_next - x, ord=np.inf)
 
-                # Append the current step to the list of steps
-                steps.append((iteration + 1, x.tolist(), error))
+                    # Append the current step to the list of steps
+                    steps.append((iteration + 1, x.tolist(), error))
 
-                # Update the current approximation with the next approximation
-                x = x_next
-                print(x)
-            # Update context dictionary with the final solution and steps
-            context['x'] = x.tolist()
-            context['step'] = iteration + 1
-            context['steps'] = steps
+                    # Update the current approximation with the next approximation
+                    x = x_next
+                    print(x)
+                # Update context dictionary with the final solution and steps
+                context['x'] = x.tolist()
+                context['step'] = iteration + 1
+                context['steps'] = steps
 
-        else:
-            context['error'] = 'Matrix A is not diagonally dominant'
+            else:
+                context['error'] = 'Matrix A is not diagonally dominant'
 
         return JsonResponse(
             {
