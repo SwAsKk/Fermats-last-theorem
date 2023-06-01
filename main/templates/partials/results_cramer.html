@@ -1,19 +1,40 @@
-<div class="card1">
-<h1>Cramer's Method</h1>
-  {% for step in steps %}
-    <hr>
-    <p>Iteration {{ step.0 }}</p>
-    <table>
-      {% for row in step.1 %}
-        <tr>
-          {% for item in row %}
-            <td>{{ item }}</td>
-          {% endfor %}
-        </tr>
-      {% endfor %}
-    </table>
-    <p>Solution: {{ step.3 }}</p>
-  {% endfor %}
-  <hr>
-  <p>Final Solution: {{ x }}</p>
+
+  <h1>Cramer's Rule</h1>
+
+  {% if error %}
+  <p>{{ error }}</p>
+  {% else %}
+  <p>Step {{ step }}:</p>
+  <p>A = {{ A }}</p>
+  <p>b = {{ b }}</p>
+  <p>det(A) = {{ det_A }}</p>
+  <p>x = {{ x }}</p>
+  {% endif %}
+
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  где подробное решение?
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Справка о решении</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Наша команда приняла решение не показывать подробное решение в калькуляторах. Почему?</з>
+        <p>1.Так мы можем предотвратить "читерство" в обучении численным методам. Вы решаете задачу сами и в калькуляторе видите только ответ. Алгоритм решения подробно расписан в статье.</p>
+        <p>2.Таким образом повысится ваша личная производительность и мотивация практиковаться в решении задач численных методов.</p>
+        <p>3.Все преподаватели будут довольны</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
 </div>

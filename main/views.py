@@ -113,10 +113,6 @@ def crammer_method(request):
         
         # Compute determinant of A
             det_A = np.linalg.det(A)
-        
-            # Convert ndarray to list
-            A = A.tolist()
-            b = b.tolist()
 
             # Initialize context dictionary
             context = {
@@ -127,15 +123,16 @@ def crammer_method(request):
                 'step': 0
             }
             
-
+            steps = []
             # Check if determinant is nonzero
             if det_A != 0:
                 # Loop over columns of A to solve for each variable
                 for i in range(n):
                     # Create copy of A with ith column replaced by b
-                    Ai = [row.copy() for row in A]  # Создать копию каждой строки A
-                    for row in Ai:
-                        row[i] = b[i]
+                    
+                    Ai = A.copy()
+                    print(Ai)
+                    Ai[:, i] = b
 
 
                     # Compute determinant of Ai
@@ -143,10 +140,11 @@ def crammer_method(request):
 
                     # Compute solution for ith variable
                     xi = det_Ai / det_A
-
+                    steps.append((i + 1, A, b, xi))
                     # Update context dictionary with current step and solution
                     context['x'][i] = xi
                     context['step'] = i+1
+                    context['steps'] = steps
                     
             else:
                 # If determinant is zero, system is inconsistent

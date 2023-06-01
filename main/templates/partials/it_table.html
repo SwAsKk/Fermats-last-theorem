@@ -1,0 +1,40 @@
+<div class="matrix_container">
+    <form id="matrix_container" action="" method="post">
+      <input type="text" name="matrix" id="matrix" class="d-none" />
+      <table class="table0">
+        {% for j in n_value %}
+          <tr>
+            {% for i in n_value %}
+              <td class="TblCl">
+                <input type="number"
+                       step="any"
+                       name="fake_matrix"
+                       id="inp{{ j }}{{ i }}"
+                       placeholder="0"
+                       value="0"
+                       autocomplete="off"
+                       required />
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+        <tr>
+            {% for i in n_value %}
+            <td class="TblCl">
+              <input type="number"
+                     step="any"
+                     name="fake_matrix_vector"
+                     id="inp{{ j }}{{ i }}"
+                     placeholder="0"
+                     value="0"
+                     autocomplete="off"
+                     required />
+            </td>
+          {% endfor %}
+        </tr>
+
+      </table>
+      <input type="submit" value="Рассчитать" />
+    </form>
+  </div>
+  
