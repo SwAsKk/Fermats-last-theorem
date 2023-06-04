@@ -421,7 +421,7 @@ def iterative_method(request):
                 if np.abs(A[i][i]) <= row_sum:
                     is_diagonally_dominant = False
                     break
-            
+                
             if is_diagonally_dominant:
                 # Loop over iterations of the iterative method
                 x = np.zeros(n)
@@ -463,3 +463,70 @@ def iterative_method(request):
         )
 
     return render(request, "pages/iterative.html", context)
+
+
+@csrf_exempt
+def newton_method(request):
+    context = {"site_name": "Численные методы", "page_name": "Метод Ньютона"}
+    if request.method == "POST":
+        n = int(request.POST.get("size", 2))
+        n_value = range(n)
+        context["n"] = n
+        context["n_value"] = n_value
+        A = np.zeros((n, n))
+        b = np.zeros(n)
+
+        list_array_newton = request.POST.getlist("fake_matrix")
+        list_newton_vector = request.POST.getlist("fake_matrix_vector")
+        if len(list_array_newton) != 0:
+            count = 0
+            for i in range(n):
+                for j in range(n):
+                    A[i][j] = int(list_array_newton[count])
+                    count += 1
+                b[i] = int(list_newton_vector[i])
+
+            # Initialize context dictionary
+            context = {
+                'A': A,
+                'b': b,
+                'x': np.zeros(n).tolist(),
+                'step': 0
+            }
+
+            steps = []
+
+            # Loop over iterations of the Newton method
+            x = np.zeros(n)
+            for iteration in range(10):
+                # Evaluate the system of equations and its Jacobian at x
+                f = np.dot(A, x) - b
+                J = np.zeros((n, n))
+                for i in range(n):
+                    for j in range(n):
+                        J[i, j] = A[i, j]
+
+                # Solve the linear system J * delta_x = -f for delta_x
+                delta_x = np.linalg.solve(J, -f)
+
+                # Update the solution x
+                x = x + delta_x
+
+                # Append the current step to the list of steps
+                steps.append((iteration + 1, x.tolist()))
+
+            # Update context dictionary with the final solution and steps
+            context['x'] = x.tolist()
+            context['step'] = iteration + 1
+            context['steps'] = steps
+
+        return JsonResponse(
+            {
+                "tableHTML": render_to_string("partials/normal_table.html", context),
+                "resultsHTML": render_to_string(
+                    "partials/results_newton.html", context
+                )
+            }
+        )
+
+    return render(request, "pages/newton.html", context)
