@@ -81,6 +81,15 @@
 </body>
 </div>
 {% if request.user.is_authenticated %}
+  <div class="card2">
+    <h1 class="text-center">Вы можете пройти тестирование по теме "Метод Краммера"</h1>
+    <p>
+      Чтобы пройти тестирование, перейдите по ссылке ниже. Результаты тестирования сохранятся в личном кабинете пользователя
+    </p>
+    <a href="{% url 'quiz' quiz_id=1 %}">Тест по теме "Метод Краммера"</a>
+  </div>
+{% endif %}
+{% if request.user.is_authenticated %}
   <div class="card2 text-center">
     <h1 class="text-center">Вычисление СЛАУ методом Крамера</h1>
     <h1 class="text-center">Введите размерность матриц</h1>

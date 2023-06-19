@@ -359,7 +359,7 @@ def matrixLawOfEquality(request):
 def quiz(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
     questions = Question.objects.filter(quiz=quiz)
-    return render(request, "pages/quiz.html", {"quiz": quiz, "questions": questions})
+    return render(request, "pages/quiz.html", {"quiz": quiz, "questions": questions,})
 
 
 @login_required
